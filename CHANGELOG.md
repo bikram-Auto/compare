@@ -4,6 +4,36 @@ All notable changes to this project will be documented in this file.
 
 ---
 
+## [v1.3.0] - February 27, 2026
+
+### Added
+- **Config Mode (`--config`)**: Execute multiple source → destination mappings from a JSON file
+  - Supports multiple mappings in a single run
+  - Ideal for microservice distribution and shared module replication
+- **File Source Support in Config Mode**
+  - `source` can now be either:
+    - A folder
+    - A single file
+- **Deterministic Sync in Config Mode**
+  - `--sync` now clears destination before copying
+  - Works consistently for both file and folder sources
+- **Automatic Destination Creation**
+  - Creates destination directories if they do not exist
+- **Config Variable Support**
+  - Supports environment variables like `${HOME}`
+  - Supports config-level variables like `${base}`
+
+### Improved
+- Unified behavior between CLI mode and config mode
+- Consistent `--sync` semantics across all execution paths
+- Enhanced path resolution logic for cross-platform compatibility
+- Cleaner execution flow in `main()` with dedicated config processor
+
+### Fixed
+- Sync mode not triggering correctly in config mode (file source case)
+- Incorrect destination handling when mapping file sources
+- JSON validation clarity with improved error messaging
+
 ## [v1.2.0] - February 24, 2026
 
 ### Added
@@ -119,8 +149,9 @@ All notable changes to this project will be documented in this file.
 
 | Version | Release Date | Key Features | File Size |
 |---------|--------------|--------------|-----------|
-| v1.2.0 | Feb 24, 2026 | --only flag for selective copying | 46-38 MB* |
-| v1.1.0 | Previous | Auto-stack optimization, standalone binaries | 44 MB* |
+| v1.3.0 | Feb 27, 2026 | Config mode, file-source support, deterministic sync | 36-44 MB* |
+| v1.2.0 | Feb 24, 2026 | --only flag for selective copying | 36-44 MB* |
+| v1.1.0 | Previous | Auto-stack optimization, standalone binaries | 36-44 MB* |
 | v1.0.0 | Initial | Core folder comparison & sync | 7.8 KB |
 
 *Standalone executables with bundled Node.js
@@ -129,18 +160,20 @@ All notable changes to this project will be documented in this file.
 
 ## Feature Matrix
 
-| Feature | v1.0.0 | v1.1.0 | v1.2.0 |
-|---------|--------|--------|--------|
-| Basic folder comparison | ✓ | ✓ | ✓ |
-| Safe copy mode | ✓ | ✓ | ✓ |
-| Preview mode (--no-copy) | ✓ | ✓ | ✓ |
-| Full sync mode (--sync) | ✓ | ✓ | ✓ |
-| Nested folders | ✓ | ✓ | ✓ |
-| Auto-stack optimization | | ✓ | ✓ |
-| Standalone executables | | ✓ | ✓ |
-| 100k+ files support | | ✓ | ✓ |
-| Filter mode (--only) | | | ✓ |
-| Selective copying | | | ✓ |
+| Feature | v1.0.0 | v1.1.0 | v1.2.0 | v1.3.0 |
+|---------|--------|--------|--------|--------|
+| Basic folder comparison | ✓ | ✓ | ✓ | ✓ |
+| Safe copy mode | ✓ | ✓ | ✓ | ✓ |
+| Preview mode (--no-copy) | ✓ | ✓ | ✓ | ✓ |
+| Full sync mode (--sync) | ✓ | ✓ | ✓ | ✓ |
+| Nested folders | ✓ | ✓ | ✓ | ✓ |
+| Auto-stack optimization | | ✓ | ✓ | ✓ |
+| Standalone executables | | ✓ | ✓ | ✓ |
+| 100k+ files support | | ✓ | ✓ | ✓ |
+| Filter mode (--only) | | | ✓ | ✓ |
+| Config mode (--config) | | | | ✓ |
+| File source in config | | | | ✓ |
+| Multi-destination mapping | | | | ✓ |
 
 ---
 
